@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050b0e">
+<title>Edge Board</title>
+<style>
+:root{
+ --bg:#050b0e;--panel:#0b1519;--panel2:#0f2026;--line:#214c55;--text:#f5f8f9;--muted:#7f969d;
+ --cyan:#5ef4e2;--green:#46e99a;--amber:#f1b64a;--lean:#d8a85e;--slate:#8b9ca1;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#050b0e;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+body{
+ min-height:100vh;
+ background:
+   radial-gradient(circle at 20% -10%,#15383b 0,transparent 34%),
+   radial-gradient(circle at 90% 15%,#15242a 0,transparent 28%),
+   linear-gradient(180deg,#060d10,#05090c 70%);
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;opacity:.36;
+ background-image:
+   linear-gradient(rgba(94,244,226,.028) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(94,244,226,.022) 1px,transparent 1px);
+ background-size:26px 26px;
+}
+header{
+ position:sticky;top:0;z-index:20;padding:14px 14px 11px;
+ background:rgba(5,11,14,.93);backdrop-filter:blur(14px);
+ border-bottom:1px solid #17353c;
+}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand small{display:block;color:#7de3da;font-size:10px;letter-spacing:.23em;font-weight:900}
+.brand h1{
+ margin:2px 0 0;font-size:28px;letter-spacing:.055em;font-weight:1000;
+ font-style:italic;text-shadow:0 0 18px #5ef4e21a;
+}
+.refresh{
+ min-width:44px;height:42px;border:1px solid #347078;border-radius:9px;
+ background:linear-gradient(180deg,#0d2327,#081316);color:var(--cyan);
+ font-size:18px;font-weight:1000;box-shadow:0 0 20px #5ef4e21a;
+}
+main{max-width:820px;margin:auto;padding:12px 12px 34px}
+.topstats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat{
+ position:relative;overflow:hidden;background:linear-gradient(180deg,#0e2025,#091417);
+ border:1px solid #2a5962;border-radius:12px;padding:12px 13px;
+ box-shadow:inset 0 0 0 1px #102c32,0 0 18px #5ef4e208;
+}
+.stat:before,.hero:before{content:"";position:absolute;left:0;top:0;width:32px;height:1px;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.stat span{display:block;color:#8ca6ab;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800}
+.stat b{display:block;font-size:23px;margin-top:4px;letter-spacing:.02em}
+.betinput{width:108px;border:0;outline:0;background:transparent;color:#eafffc;font-size:23px;font-weight:950}
+.date-tabs{display:flex;gap:7px;margin-top:10px}
+.date-tab{
+ flex:1;border:1px solid #234a51;background:#091316;color:#a2b7bb;
+ padding:10px;border-radius:9px;font-weight:900;letter-spacing:.05em
+}
+.date-tab.active{color:#061212;background:linear-gradient(180deg,#69f5e5,#45d8ca);border-color:#64e9dc;box-shadow:0 0 15px #5ef4e22b}
+.filters{display:flex;gap:7px;overflow-x:auto;padding:11px 0 10px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter{
+ flex:0 0 auto;border:1px solid #294f56;background:#091316;color:#d8e3e5;
+ padding:8px 13px;border-radius:999px;font-weight:900;font-size:12px
+}
+.filter.active{border-color:#69efe2;color:#eafffd;box-shadow:0 0 14px #5ef4e227}
+#hidePasses.active{background:#17302f;border-color:#5ef4e2;color:#8ff8ed;box-shadow:0 0 14px #5ef4e227}
+.viewport{position:relative;overflow:hidden;padding:4px 0 2px}
+.deckrow{position:relative;min-height:535px}
+.peek{
+ position:absolute;top:54px;width:36%;height:430px;border:1px solid #23474d;
+ border-radius:18px;background:linear-gradient(180deg,#0d181c,#091114);
+ opacity:.38;filter:saturate(.75);overflow:hidden;padding:16px;z-index:1
+}
+.peek.left{left:-28%;transform:rotateY(8deg) scale(.94)}
+.peek.right{right:-28%;transform:rotateY(-8deg) scale(.94)}
+.peek .peekname{font-size:17px;font-weight:950;line-height:1.08}
+.peek .peekgrade{margin-top:16px;display:inline-block;padding:6px 9px;border:1px solid #40666c;border-radius:7px;font-size:10px;font-weight:900}
+.hero{
+ position:relative;z-index:3;width:min(100%,660px);min-height:515px;margin:auto;
+ overflow:hidden;border:1px solid #3b7a82;border-radius:20px;
+ background:
+   linear-gradient(135deg,rgba(94,244,226,.035),transparent 20%),
+   linear-gradient(180deg,#10232a,#091417);
+ box-shadow:0 24px 60px #000a,0 0 28px #5ef4e212;
+ padding:18px;
+}
+.hero:after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:20px;box-shadow:inset 0 0 34px #0007}
+.cardhead{position:relative;z-index:1;display:flex;justify-content:space-between;gap:12px}
+.time{color:#84a2a7;font-size:11px;letter-spacing:.08em}
+.matchup{font-size:27px;font-weight:1000;line-height:1.08;margin-top:5px}
+.badge{height:max-content;padding:7px 11px;border-radius:8px;font-size:11px;font-weight:1000;letter-spacing:.09em;text-transform:uppercase}
+.strong{background:#0b3b2c;color:#7affba;border:1px solid #39e397;box-shadow:0 0 16px #39e39727}
+.play{background:#3c2d10;color:#ffdc8b;border:1px solid #e4ab3b;box-shadow:0 0 15px #e4ab3b1f}
+.lean{background:#302819;color:#e8cf98;border:1px solid #a6844b}
+.pass{background:#1d292d;color:#b8c5c8;border:1px solid #485d61}
+.teams{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center;margin-top:16px}
+.team{
+ min-height:92px;position:relative;overflow:hidden;padding:14px;border:1px solid rgba(255,255,255,.18);
+ border-radius:10px;background:linear-gradient(135deg,var(--t1),var(--t2));
+ box-shadow:inset 0 0 24px #0007;
+}
+.team:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.team:after{content:"";position:absolute;right:-24px;top:-20px;width:90px;height:160px;transform:rotate(20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.05))}
+.teamname{position:relative;z-index:2;font-size:20px;font-weight:1000;line-height:1.02;text-shadow:0 2px 9px #000}
+.at{font-size:17px;color:#79e4db;font-weight:1000}
+.pickbox{
+ position:relative;z-index:1;margin-top:16px;border:1px solid #35656c;border-radius:11px;
+ background:linear-gradient(180deg,#0a171a,#071113);padding:15px 16px;
+ box-shadow:inset 0 0 20px #5ef4e207;
+}
+.pickbox small{color:#82a5aa;font-size:10px;letter-spacing:.13em;font-weight:800}
+.pick{font-size:32px;font-weight:1000;line-height:1.05;margin-top:5px}
+.metrics{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.metric{border-top:1px solid #2a4d54;padding-top:9px}.metric span{display:block;color:#789399;font-size:9px;text-transform:uppercase;letter-spacing:.08em}.metric b{display:block;font-size:17px;margin-top:2px}
+.scores{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.scorebox{border:1px solid #2a5158;background:#081215;border-radius:9px;padding:10px}
+.scorebox span{display:block;color:#718a90;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.scorebox b{display:block;margin-top:2px;font-size:18px}
+.marketbar{
+ position:relative;z-index:1;margin-top:13px;padding:10px;border:1px solid #294d54;border-radius:9px;background:#071113;
+ display:grid;grid-template-columns:1fr 1fr;gap:8px
+}
+.marketitem span{display:block;color:#6f8a90;font-size:9px;text-transform:uppercase;letter-spacing:.07em}
+.marketitem b{display:block;margin-top:2px;font-size:12px}
+.sourcechip{display:inline-block;margin-top:4px;padding:3px 6px;border:1px solid #315d63;border-radius:999px;color:#91afb4;font-size:9px}
+.passcontext{position:relative;z-index:1;margin-top:10px;border:1px dashed #3b5e64;background:#081214;border-radius:9px;padding:10px}
+.passcontext span{display:block;color:#789096;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.passcontext b{display:block;margin-top:3px;font-size:14px;color:#dbe8ea}
+.meta{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}
+.box{border:1px solid #29474d;background:#081215;border-radius:8px;padding:8px}
+.box span{display:block;color:#718a90;font-size:9px;text-transform:uppercase}.box b{display:block;margin-top:2px;font-size:12px}
+.final{position:relative;z-index:1;margin-top:10px;color:#849da3;font-size:11px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:9px}.nav button{border:1px solid #294f56;background:#091316;color:#e9f6f6;padding:10px 13px;border-radius:9px;font-weight:900}.count{color:#6f898f;font-size:11px}
+.hint{text-align:center;color:#566c72;font-size:9px;margin-top:7px}
+.empty{padding:80px 20px;text-align:center;color:#82979c}
+@media(max-width:620px){
+ .matchup{font-size:24px}.hero{min-height:540px;padding:16px}.teamname{font-size:17px}.pick{font-size:28px}.peek{display:block}.scores{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.scorebox{border:1px solid #2a5158;background:#081215;border-radius:9px;padding:10px}
+.scorebox span{display:block;color:#718a90;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.scorebox b{display:block;margin-top:2px;font-size:18px}
+.marketbar{grid-template-columns:1fr}.topstats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div id="signupGate" style="position:fixed;inset:0;z-index:9999;background:rgba(4,10,13,.98);display:grid;place-items:center;padding:18px">
+  <div style="width:min(440px,100%);background:linear-gradient(180deg,#0e2025,#091417);border:1px solid #2d646d;border-radius:18px;padding:22px;box-shadow:0 25px 80px #000b,0 0 30px #5ef4e219">
+    <div style="color:#78e1d7;font-size:10px;letter-spacing:.2em;font-weight:900">FREE BETA ACCESS</div>
+    <div style="font-size:32px;line-height:1;font-weight:1000;font-style:italic;letter-spacing:.04em;margin-top:5px">EDGE BOARD</div>
+    <p style="color:#8ea5aa;line-height:1.5;margin:12px 0 18px">Enter your email to unlock today’s board.</p>
+    <form id="signupForm">
+      <input id="signupEmail" type="email" required placeholder="you@example.com"
+        style="width:100%;padding:13px 14px;background:#071113;border:1px solid #315f66;border-radius:9px;color:#f3f8f8;font-size:16px;outline:none">
+      <button type="submit"
+        style="width:100%;margin-top:10px;padding:13px;border:1px solid #62eadf;border-radius:9px;background:linear-gradient(180deg,#68f2e3,#44d9cb);color:#051213;font-weight:1000;letter-spacing:.04em">
+        UNLOCK FREE BETA
+      </button>
+    </form>
+    <div id="signupStatus" style="min-height:17px;color:#ef9f88;font-size:11px;margin-top:9px"></div>
+    <div style="color:#577076;font-size:10px;margin-top:7px">Free beta access. No payment required.</div>
+  </div>
+</div>
+
+<header><div class="topline">
+  <div class="brand"><small>COLLEGE BASKETBALL</small><h1>EDGE BOARD</h1></div>
+  <button id="refresh" class="refresh">↻</button>
+</div></header>
+<main>
+  <section class="topstats">
+    <div class="stat"><span>Standard bet size</span><b>$<input id="betSize" class="betinput" type="number" min="1" value="100"></b></div>
+    <div class="stat"><span>Tracked record</span><b id="record">—</b></div>
+  </section>
+
+  <div class="date-tabs">
+    <button class="date-tab active" data-date="today">TODAY</button>
+    <button class="date-tab" data-date="tomorrow">TOMORROW</button>
+  </div>
+
+  <div class="filters">
+    <button class="filter active" data-filter="all">ALL</button>
+    <button class="filter" data-filter="strong">STRONG</button>
+    <button class="filter" data-filter="play">PLAY</button>
+    <button class="filter" data-filter="lean">LEAN</button>
+    <button class="filter" data-filter="pass">PASS</button>
+    <button id="hidePasses" class="filter">HIDE PASSES</button>
+  </div>
+
+  <div class="viewport"><div class="deckrow">
+    <div id="peekL" class="peek left"></div>
+    <article id="hero" class="hero"></article>
+    <div id="peekR" class="peek right"></div>
+  </div></div>
+
+  <div class="nav"><button id="prev">← PREV</button><span class="count" id="count">0 / 0</span><button id="next">NEXT →</button></div>
+  <div class="hint">Swipe left/right through the board.</div>
+</main>
+
+<script>
+const SIGNUP_ENDPOINT = ""; // connect to backend when hosted
+const TEAM_COLORS = {"Arizona":["#6b0f1a","#141d2b","#d92536"],"UCLA":["#0f4f83","#10253d","#f3c33b"],"Central Michigan":["#6b1e2b","#21191b","#f2c14f"],"UL Monroe":["#5a1619","#221516","#d5a33c"],"Florida":["#103b77","#16243b","#f47b20"],"Miami":["#0b4c2c","#14241b","#f47b20"],"Stanford":["#68151b","#1d1718","#d62e38"],"Saint Mary's":["#172e62","#151c2c","#c72735"],"Bowling Green":["#4a321b","#221a12","#ef8f2d"],"Georgia State":["#123764","#142234","#c92f36"],"Northern Kentucky":["#171717","#262626","#f3c129"],"UTEP":["#173668","#162037","#f47b20"],"San Jose State":["#0b3e72","#14233b","#f4b72e"],"UTSA":["#153c69","#15213a","#f47b20"],"High Point":["#3d1f66","#201a2b","#e6c74a"],"Liberty":["#152f68","#141c2d","#d82635"]};
+const SLATES = {today: [{"time":"12:00 AM","away":"Liberty","home":"High Point","grade":"strong","pick":"Liberty +9.5","units":1.0,"price":"-110","result":"L","close":"Liberty +9.5","clv":"0.0","final":"High Point 72 - Liberty 57","profit":-1.0,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"3:00 AM","away":"Grambling","home":"Northern Illinois","grade":"play","pick":"Grambling +5.5","units":0.75,"price":"-110","result":"W","close":"Grambling +8.5","clv":"-3.0","final":"Grambling 89 - Northern Illinois 87","profit":0.68,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"6:00 AM","away":"App State","home":"Merrimack","grade":"strong","pick":"App State +3.5","units":1.0,"price":"-110","result":"W","close":"App State +3.5","clv":"0.0","final":"App State 63 - Merrimack 49","profit":0.91,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"9:00 AM","away":"Winthrop","home":"Queens","grade":"pass","pick":"PASS","units":0,"price":"","result":"PASS","close":"Winthrop +2.5","clv":"","final":"Queens 103 - Winthrop 98","profit":0,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"11:30 AM","away":"Tennessee State","home":"Murray State","grade":"lean","pick":"Tennessee State +8.5","units":0.5,"price":"-110","result":"L","close":"Tennessee State +10.5","clv":"-2.0","final":"Murray State 94 - Tennessee State 64","profit":-0.5,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"2:00 PM","away":"Northern Kentucky","home":"UTEP","grade":"strong","pick":"Northern Kentucky +1.5","units":1.0,"price":"-110","result":"W","close":"Northern Kentucky +2.5","clv":"-1.0","final":"Northern Kentucky 84 - UTEP 76","profit":0.91,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"3:00 PM","away":"UTSA","home":"San Jose State","grade":"play","pick":"San Jose State -7.5","units":0.75,"price":"-110","result":"W","close":"San Jose State -7.5","clv":"0.0","final":"San Jose State 95 - UTSA 74","profit":0.68,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"4:00 PM","away":"UMBC","home":"George Mason","grade":"lean","pick":"UMBC +17.5","units":0.5,"price":"-110","result":"L","close":"UMBC +20.5","clv":"-3.0","final":"George Mason 69 - UMBC 48","profit":-0.5,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"5:30 PM","away":"UAB","home":"McNeese","grade":"lean","pick":"McNeese -3.5","units":0.5,"price":"-110","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"6:00 PM","away":"Bowling Green","home":"Georgia State","grade":"strong","pick":"Bowling Green +3.5","units":1.0,"price":"-110","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"6:00 PM","away":"Oakland","home":"Michigan","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"6:00 PM","away":"Florida","home":"Miami","grade":"play","pick":"Florida -4.5","units":0.75,"price":"-110","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"6:00 PM","away":"Cornell","home":"Pepperdine","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"6:30 PM","away":"Central Connecticut","home":"Temple","grade":"lean","pick":"Central Connecticut +15.5","units":0.5,"price":"-110","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"6:30 PM","away":"Monmouth","home":"St. John's","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"6:30 PM","away":"Army","home":"Duke","grade":"lean","pick":"Army +42.5","units":0.5,"price":"-110","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"6:30 PM","away":"Loyola Maryland","home":"Georgetown","grade":"play","pick":"Loyola Maryland +25","units":0.75,"price":"-110","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"6:00 PM","away":"Pepperdine","home":"Cornell","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"LIU","home":"FAU","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Memphis","home":"Iowa State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Buffalo","home":"Marshall","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Lafayette","home":"Butler","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"FGCU","home":"UCF","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"American","home":"Cincinnati","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Stetson","home":"Clemson","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Elon","home":"Columbia","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"NJIT","home":"Dayton","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Ball State","home":"Georgia Southern","grade":"lean","pick":"Georgia Southern +2.5","units":0.5,"price":"-115","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-115","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Eastern Illinois","home":"Indiana","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Charlotte","home":"Indiana State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Air Force","home":"Wright State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Bucknell","home":"Maryland","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Northeastern","home":"Boston University","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Quinnipiac","home":"Michigan State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Maine","home":"Providence","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"UNC Asheville","home":"Richmond","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Western Carolina","home":"North Carolina","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Western Michigan","home":"Old Dominion","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"St. Thomas","home":"Presbyterian","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"USC Upstate","home":"East Carolina","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"New Hampshire","home":"Brown","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Charleston Southern","home":"South Florida","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Little Rock","home":"VCU","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:00 PM","away":"Niagara","home":"West Virginia","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Southern Indiana","home":"Belmont","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Tennessee Tech","home":"Mississippi State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Central Michigan","home":"UL Monroe","grade":"strong","pick":"Central Michigan -2.5","units":1.0,"price":"-118","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-118","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Purdue","home":"Gonzaga","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Lipscomb","home":"SE Missouri State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Navy","home":"George Washington","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Denver","home":"Wisconsin","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Morehead State","home":"Western Kentucky","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Le Moyne","home":"Nebraska","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Kent State","home":"Louisiana Tech","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Mercyhurst","home":"Marquette","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Saint Peter's","home":"Seton Hall","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Campbell","home":"NC State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"NC Central","home":"Georgia","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"7:30 PM","away":"Canisius","home":"Penn State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"The Citadel","home":"Loyola Chicago","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"Binghamton","home":"Northwestern","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"East Texas A&M","home":"Oklahoma","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"Southern","home":"SMU","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"Ohio","home":"South Alabama","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"Akron","home":"Louisiana","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"Texas A&M-Corpus Christi","home":"Texas State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"Lindenwood","home":"TCU","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"UT Martin","home":"Tulane","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"Western Illinois","home":"Valparaiso","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"Maryland Eastern Shore","home":"Wake Forest","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"FDU","home":"Illinois","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:00 PM","away":"Siena","home":"Bryant","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:30 PM","away":"Alcorn State","home":"Ole Miss","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:30 PM","away":"Oral Roberts","home":"Central Arkansas","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"8:30 PM","away":"Florida A&M","home":"Florida State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Chicago State","home":"Texas","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Abilene Christian","home":"Colorado","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Long Beach State","home":"Utah","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Ohio State","home":"BYU","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Utah Tech","home":"New Mexico","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Davidson","home":"Washington State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Texas Southern","home":"Grand Canyon","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"La Salle","home":"Houston","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Chattanooga","home":"Louisville","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Gardner-Webb","home":"UConn","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"Incarnate Word","home":"Oklahoma State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:00 PM","away":"North Dakota","home":"Minnesota","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:30 PM","away":"Idaho State","home":"Utah State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:30 PM","away":"Northwestern State","home":"Baylor","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"9:30 PM","away":"Weber State","home":"Oregon State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"ETSU","home":"Arizona State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"Montana State","home":"Colorado State","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"North Alabama","home":"UC Davis","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"Eastern Washington","home":"Stanford","grade":"lean","pick":"Stanford -13.5","units":0.5,"price":"-110","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"Illinois State","home":"Saint Mary's","grade":"lean","pick":"Saint Mary's -6.5","units":0.5,"price":"-110","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-110","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"Montana","home":"Oregon","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"Arizona","home":"UCLA","grade":"strong","pick":"Arizona -4.5","units":1.0,"price":"-112","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"-112","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"Colgate","home":"Washington","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"Radford","home":"San Francisco","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"Robert Morris","home":"Nevada","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"10:00 PM","away":"Towson","home":"Santa Clara","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""},{"time":"10:30 PM","away":"Milwaukee","home":"USC","grade":"pass","pick":"PASS","units":0,"price":"","result":"","close":"","clv":"","final":"","profit":null,"best_source":"","best_price":"","widely_source":"","widely_price":"","updated":""}], tomorrow: []};
+let activeDate="today",filter="all",idx=0,hidePasses=false;
+let baseBet=Number(localStorage.getItem("edgeBaseBet")||100);
+const $=id=>document.getElementById(id);
+$("betSize").value=baseBet;
+function colors(name){return TEAM_COLORS[name]||["#1b2d32","#0d171b","#5ef4e2"]}
+function list(){
+ const s=SLATES[activeDate]||[];
+ let out=filter==="all"?s:s.filter(g=>g.grade===filter);
+ if(hidePasses) out=out.filter(g=>g.grade!=="pass");
+ return out;
+}
+function money(u){return "$"+(Number(u||0)*baseBet).toFixed(0)}
+function rec(){
+ const s=SLATES.today.filter(g=>g.grade!=="pass"&&["W","L","P"].includes(g.result));
+ const w=s.filter(g=>g.result==="W").length,l=s.filter(g=>g.result==="L").length,p=s.filter(g=>g.result==="P").length;
+ const u=s.reduce((a,g)=>a+Number(g.profit||0),0);
+ $("record").textContent=`${w}-${l}-${p}  ${u>=0?"+":""}${u.toFixed(2)}u`;
+}
+function peek(g){
+ if(!g)return "";
+ return `<div class="peekname">${g.away}<br>@<br>${g.home}</div><div class="peekgrade">${g.grade.toUpperCase()}</div>`;
+}
+function render(){
+ const s=list(),hero=$("hero");
+ if(!s.length){
+   hero.innerHTML='<div class="empty">No games published yet.</div>';
+   $("peekL").innerHTML="";$("peekR").innerHTML="";$("count").textContent="0 / 0";return;
+ }
+ if(idx>=s.length)idx=0;
+ const g=s[idx],pass=g.grade==="pass"||g.pick==="PASS";
+ const ac=colors(g.away),hc=colors(g.home);
+ const prev=s[(idx-1+s.length)%s.length],next=s[(idx+1)%s.length];
+ $("peekL").innerHTML=peek(prev);$("peekR").innerHTML=peek(next);
+ const bestSrc=g.best_source||"";
+ const wideSrc=g.widely_source||"";
+ const bestPrice=g.best_price||g.price||"—";
+ const widePrice=g.widely_price||"—";
+ hero.innerHTML=`
+ <div class="cardhead">
+   <div><div class="time">${g.time}${g.updated?` • updated ${g.updated}`:""}</div><div class="matchup">${g.away} @ ${g.home}</div></div>
+   <div class="badge ${g.grade}">${g.grade}</div>
+ </div>
+ <div class="teams">
+   <div class="team" style="--t1:${ac[0]};--t2:${ac[1]};--accent:${ac[2]}"><div class="teamname">${g.away}</div></div>
+   <div class="at">@</div>
+   <div class="team" style="--t1:${hc[0]};--t2:${hc[1]};--accent:${hc[2]}"><div class="teamname">${g.home}</div></div>
+ </div>
+ <div class="pickbox"><small>${pass?"NO BET":"SUGGESTED BET"}</small><div class="pick">${g.pick}</div></div>
+ <div class="metrics">
+   <div class="metric"><span>Stake</span><b>${pass?"—":money(g.units)}</b></div>
+   <div class="metric"><span>Units</span><b>${pass?"—":Number(g.units).toFixed(2)+"u"}</b></div>
+   <div class="metric"><span>Suggested Price</span><b>${g.suggested_price||g.price||"—"}</b></div>
+ </div>
+ <div class="scores">
+   <div class="scorebox"><span>Model Rating</span><b>${g.model_rating||"—"}</b></div>
+   <div class="scorebox"><span>Market Agreement</span><b>${g.market_agreement||"—"}</b></div>
+ </div>
+ <div class="marketbar">
+   <div class="marketitem"><span>Best available</span><b>${bestPrice}</b>${bestSrc?`<div class="sourcechip">${bestSrc}</div>`:""}</div>
+   <div class="marketitem"><span>Widely available</span><b>${widePrice}</b>${wideSrc?`<div class="sourcechip">${wideSrc}</div>`:""}</div>
+ </div>
+ ${pass && (g.fair_price||g.fair_edge)?`
+ <div class="passcontext">
+   <span>Model context — pass only</span>
+   <b>${g.fair_price?`Fair: ${g.fair_price}`:""}${g.fair_price&&g.fair_edge?" • ":""}${g.fair_edge?`Edge: ${g.fair_edge}`:""}</b>
+ </div>`:""}
+ <div class="meta">
+   <div class="box"><span>Close</span><b>${g.close||"—"}</b></div>
+   <div class="box"><span>CLV</span><b>${g.clv||"—"}</b></div>
+   <div class="box"><span>Result</span><b>${g.result||"Open"}</b></div>
+ </div>
+ ${g.final?`<div class="final">${g.final}</div>`:""}`;
+ $("count").textContent=`${idx+1} / ${s.length}`;
+}
+function move(d){const s=list();if(!s.length)return;idx=(idx+d+s.length)%s.length;render()}
+document.querySelectorAll(".date-tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".date-tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");activeDate=b.dataset.date;idx=0;render()});
+document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");filter=b.dataset.filter;idx=0;render()});
+$("prev").onclick=()=>move(-1);$("next").onclick=()=>move(1);$("refresh").onclick=()=>location.reload();
+$("hidePasses").onclick=()=>{
+  hidePasses=!hidePasses;
+  $("hidePasses").classList.toggle("active",hidePasses);
+  idx=0;render();
+};
+$("betSize").oninput=e=>{const v=Number(e.target.value);if(v>0){baseBet=v;localStorage.setItem("edgeBaseBet",String(v));render()}};
+let sx=0,sy=0;const hero=$("hero");
+hero.addEventListener("touchstart",e=>{const t=e.changedTouches[0];sx=t.clientX;sy=t.clientY},{passive:true});
+hero.addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.25)move(dx<0?1:-1)},{passive:true});
+
+const savedEmail=localStorage.getItem("edgeBetaEmail");
+if(savedEmail) document.getElementById("signupGate").style.display="none";
+document.getElementById("signupForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const email=document.getElementById("signupEmail").value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    document.getElementById("signupStatus").textContent="Enter a valid email.";
+    return;
+  }
+  document.getElementById("signupStatus").textContent="";
+  if(SIGNUP_ENDPOINT){
+    try{
+      await fetch(SIGNUP_ENDPOINT,{
+        method:"POST",
+        headers:{"Content-Type":"application/json","Accept":"application/json"},
+        body:JSON.stringify({email,source:"edge-board-beta",created_at:new Date().toISOString()})
+      });
+    }catch(err){}
+  }
+  localStorage.setItem("edgeBetaEmail",email);
+  document.getElementById("signupGate").style.display="none";
+});
+
+rec();render();
+</script>
+</body></html>
