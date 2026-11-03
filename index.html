@@ -267,7 +267,7 @@ function render(){
  hero.innerHTML=`
  <div class="cardhead">
    <div><div class="time">${g.time}${g.updated?` • updated ${g.updated}`:""}</div><div class="matchup">${g.away} @ ${g.home}</div></div>
-   <div class="badge ${g.grade}">${g.grade}</div>
+   <div class="badge ${finalPass?"pass":g.grade}">${finalPass?"FINAL • PASS":g.grade}</div>
  </div>
  <div class="teams">
    <div class="team" style="--t1:${ac[0]};--t2:${ac[1]};--accent:${ac[2]}"><div class="teamname">${g.away}</div></div>
