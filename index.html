@@ -297,10 +297,11 @@ const savedEmail=localStorage.getItem("edgeBetaEmail");
 if(savedEmail) document.getElementById("signupGate").style.display="none";
 
 document.getElementById("signupForm").addEventListener("submit",e=>{
-  const email=document.getElementById("signupEmail").value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+  const input=document.getElementById("signupEmail");
+  const email=input.value.trim();
+  if(!input.checkValidity()){
     e.preventDefault();
-    document.getElementById("signupStatus").textContent="Enter a valid email.";
+    input.reportValidity();
     return;
   }
   document.getElementById("signupStatus").textContent="Unlocking...";
