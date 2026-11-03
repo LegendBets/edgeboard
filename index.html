@@ -222,8 +222,8 @@ $("betSize").value=String(baseBet);
 function colors(name){return TEAM_COLORS[name]||["#1b2d32","#0d171b","#5ef4e2"]}
 function list(){
  const s=SLATES[activeDate]||[];
- let out=filter==="all"?s:s.filter(g=>g.grade===filter);
- if(hidePasses) out=out.filter(g=>g.grade!=="pass");
+ let out=filter==="all"?s:s.filter(g=>filter==="pass"?(g.grade==="pass"||g.grade==="watch"):g.grade===filter);
+ if(hidePasses) out=out.filter(g=>g.grade!=="pass"&&g.grade!=="watch");
  return out;
 }
 function money(u){return "$"+(Number(u||0)*baseBet).toFixed(0)}
