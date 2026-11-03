@@ -287,7 +287,7 @@ function render(){
  <div class="marketbar">
    <div class="marketitem"><span>Tracked entry</span><b>${entryQuote}</b></div>
    <div class="marketitem"><span>Best available</span><b>${bestPrice}</b>${bestSrc?`<div class="sourcechip">${bestSrc}${g.best_time?" • "+g.best_time:""}</div>`:""}</div>
-   <div class="marketitem"><span>Exchange / market</span><b>${widePrice}</b>${wideSrc?`<div class="sourcechip">${wideSrc}</div>`:""}</div>
+   <div class="marketitem"><span>Widely available</span><b>${widePrice}</b></div>
  </div>
  <div class="meta">
    <div class="box"><span>${g.grade==="pass"?"Closing Line":"Close"}</span><b>${closeText}</b>${g.close_source?`<div class="sourcechip">${g.close_source}${g.close_time?" • "+g.close_time:""}</div>`:""}</div>
