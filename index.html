@@ -278,10 +278,10 @@ function render(){
  <div class="metrics">
    <div class="metric"><span>Stake</span><b>${pass||watch?"—":money(g.units)}</b></div>
    <div class="metric"><span>Units</span><b>${pass||watch?"—":Number(g.units).toFixed(2)+"u"}</b></div>
-   <div class="metric"><span>Suggested Price</span><b>${g.suggested_price||g.price||"—"}</b></div>
+   <div class="metric"><span>Suggested Price</span><b>${(g.grade==="pass"||g.grade==="watch")?(g.suggested_price&&g.suggested_price!=="PASS — NO BET"&&g.suggested_price!=="WATCH MARKET MOVE"?g.suggested_price:"—"):(g.suggested_price||g.price||"—")}</b></div>
  </div>
  <div class="scores">
-   <div class="scorebox"><span>Board Status</span><b>${g.grade==="watch"?"TRIGGER SET":g.grade.toUpperCase()}</b></div>
+   <div class="scorebox"><span>Board Status</span><b>${g.grade==="watch"?"WATCH MARKET MOVE":g.grade.toUpperCase()}</b></div>
    <div class="scorebox"><span>Market Agreement</span><b>${g.market_agreement||"—"}</b></div>
  </div>
  <div class="marketbar">
