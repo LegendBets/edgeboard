@@ -263,7 +263,7 @@ function render(){
  const bestPrice=g.best_quote||((!pass&&g.best_price)?`${g.pick} ${g.best_price}`:"—");
  const widePrice=g.widely_quote||g.widely_price||"—";
  const entryQuote=g.entry_quote||(!pass?`${g.pick}${g.price?" "+g.price:""}`:"—");
- const closeText=g.close||g.close_note||"—";
+ const closeText=g.close||g.close_note||((g.grade==="pass"&&g.final)?"MISSING CLOSE — ADD MARKET CLOSE":(g.grade==="pass"?"OPEN — CAPTURE AT TIP":"—"));
  hero.innerHTML=`
  <div class="cardhead">
    <div><div class="time">${g.time}${g.updated?` • updated ${g.updated}`:""}</div><div class="matchup">${g.away} @ ${g.home}</div></div>
@@ -290,7 +290,7 @@ function render(){
    <div class="marketitem"><span>Widely available</span><b>${widePrice}</b>${wideSrc?`<div class="sourcechip">${wideSrc}</div>`:""}</div>
  </div>
  <div class="meta">
-   <div class="box"><span>Close</span><b>${closeText}</b>${g.close_source?`<div class="sourcechip">${g.close_source}${g.close_time?" • "+g.close_time:""}</div>`:""}</div>
+   <div class="box"><span>${g.grade==="pass"?"Closing Line":"Close"}</span><b>${closeText}</b>${g.close_source?`<div class="sourcechip">${g.close_source}${g.close_time?" • "+g.close_time:""}</div>`:""}</div>
    <div class="box"><span>CLV</span><b>${g.clv||"—"}</b></div>
    <div class="box"><span>Result</span><b>${g.result||"Open"}</b></div>
  </div>
