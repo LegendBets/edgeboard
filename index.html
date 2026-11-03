@@ -296,7 +296,7 @@ function render(){
    <div class="box"><span>Result</span><b>${g.result||"Open"}</b></div>
  </div>
  ${g.final?`<div class="final">${g.final}</div>`:""}
- ${g.history&&g.history.length?`<div class="historyline"><b>LABEL HISTORY</b><br>${g.history.map(h=>`${h.time||"time unavailable"} — ${String(h.label||"").toUpperCase()}${h.pick?" • "+h.pick:""}`).join("<br>")}</div>`:""}`;
+ ${g.history&&g.history.length?`<div class="historyline"><b>PRICE / POSITION HISTORY</b><br>${g.history.map(h=>`${h.time||"time unavailable"} — ${String(h.label||"").toUpperCase()}${h.pick?" • "+h.pick:""}${h.units?` • ${Number(h.units).toFixed(2)}u`:""}`).join("<br>")}</div>`:""}`;
  $("count").textContent=`${idx+1} / ${s.length}`;
 }
 function move(d){const s=list();if(!s.length)return;idx=(idx+d+s.length)%s.length;render()}
