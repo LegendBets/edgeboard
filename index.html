@@ -306,8 +306,6 @@ function safeGame(raw){
 }
 function isPubliclyGradedGame(g){
  const grade=String(g.grade||"").toLowerCase();
- const pick=String(g.pick||"").toUpperCase();
- if(forbidden.test(String(g.market_agreement||""))||forbidden.test(String(g.trigger_status||""))||forbidden.test(String(g.suggested_price||""))||forbidden.test(pick)) return false;
  return ["strong","play","lean","pass"].includes(grade);
 }
 function list(){
