@@ -252,57 +252,7 @@ function sourceLabelForGame(g,source){
  return src;
 }
 function safeGame(raw){
- const g={...raw};
- const isFinal=!!g.final;
- const trackedGrade=["strong","play","lean"].includes(String(g.grade||"").toLowerCase());
- const hasEntry=!!g.entry_quote;
- const hasEntryProof=!!(g.entry_quote&&g.entry_source&&g.entry_time);
- const isML=/\bML\b/i.test(String(g.pick||"")+" "+String(g.entry_quote||"")+" "+String(g.suggested_price||""));
- const marketType=String(g.market_type||"spread").toLowerCase();
- const triggerVerified=g.trigger_verified===true;
-
- if(!isFinal && isML && marketType!=="ml"){
-   g.grade="watch";
-   g.pick="WATCH MARKET MOVE";
-   g.units=0;
-   g.price="";
-   g.entry_quote="";
-   g.entry_source="";
-   g.entry_time="";
-   g.current_action="";
-   g.market_agreement=g.market_agreement||"SPREAD MODEL ONLY";
- }
-
- if(!isFinal && trackedGrade && !triggerVerified && !g.entry_confirmed){
-   g.grade="watch";
-   g.pick="WATCH MARKET MOVE";
-   g.units=0;
-   g.price="";
-   g.entry_quote="";
-   g.entry_source="";
-   g.entry_time="";
-   g.current_action="";
- }
-
- if(!isFinal && trackedGrade && (!hasEntry || !hasEntryProof)){
-   g.grade="watch";
-   g.pick="WATCH MARKET MOVE";
-   g.units=0;
-   g.price="";
-   g.entry_quote="";
-   g.entry_source="";
-   g.entry_time="";
-   g.current_action="";
- }
-
- // A pass/watch can never display a phantom tracked entry.
- if(!isFinal && ["pass","watch"].includes(String(g.grade||"").toLowerCase()) && !hasEntryProof){
-   g.entry_quote="";
-   g.entry_source="";
-   g.entry_time="";
- }
-
- return g;
+ return {...raw};
 }
 function isPubliclyGradedGame(g){
  const grade=String(g.grade||"").toLowerCase();
