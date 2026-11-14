@@ -345,7 +345,7 @@ function render(){
  </div>
  <div class="scores">
    <div class="scorebox"><span>Board Status</span><b>${finalPass?"FINAL • PASS":g.grade==="watch"?"WATCH MARKET MOVE":g.grade.toUpperCase()}</b></div>
-   <div class="scorebox"><span>Model Rating</span><b>${/^(?:100|[1-9]?\d)$/.test(String(g.model_rating||""))?g.model_rating:"—"}</b></div>
+   <div class="scorebox"><span>Suggested Price</span><b>${pass||watch?"—":(g.suggested_price||g.price||"—")}</b></div>
    <div class="scorebox"><span>Market Agreement</span><b>${/^(?:100|[1-9]?\d)$/.test(String(g.market_agreement||""))?g.market_agreement:"—"}</b></div>
  </div>
  <div class="marketbar">
