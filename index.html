@@ -20994,7 +20994,7 @@ function rec(){
 function peek(g){
  if(!g)return "";
  g=safeGame(g);
- return `<div class="peekname">${g.away}<br>@<br>${g.home}</div><div class="peekgrade">${g.grade?g.grade.toUpperCase():"SCHEDULED"}</div>`;
+ return `<div class="peekname">${g.away}<br>@<br>${g.home}</div><div class="peekgrade">${g.grade?g.grade.toUpperCase():"NOT EVALUATED"}</div>`;
 }
 function render(){
  updateRunStatus();
