@@ -21846,7 +21846,7 @@ const SLATES ={
       "clv": "",
       "final": "",
       "profit": null,
-      "best_source": "FanDuel",
+      "best_source": "",
       "best_price": "",
       "widely_source": "",
       "widely_price": "",
@@ -21861,14 +21861,14 @@ const SLATES ={
       "opener_source": "",
       "entry_source": "",
       "entry_time": "",
-      "best_quote": "FanDuel spread snapshot: Seattle -15.5",
+      "best_quote": "",
       "best_time": "",
       "market_type": "spread",
       "trigger_verified": false,
       "entry_confirmed": false,
       "neutral": false,
-      "travel_status": "MOVED TO SUN",
-      "travel_note": "TRAVEL FLAG — Idaho State is the road team directly affected by FAA travel delays; game moved from Nov 14 to Nov 15. A third-party DraftKings tracker showed Seattle moving from -15.5 to -16.5, consistent with a possible home-side market adjustment. This is a possible discrepancy, not proof that travel caused the move; DraftKings is not an approved tracked source, so verify with the approved source order before treating it as actionable.",
+      "travel_status": "POSSIBLE TRAVEL ISSUE",
+      "travel_note": "TRAVEL FLAG — Idaho State is the road team directly affected by the FAA travel disruption and the game moved from Nov 14 to Nov 15. A third-party DraftKings line tracker showed Seattle moving from -15.5 to -16.5, consistent with a possible home-side market adjustment. This is diagnostic only, not proof of causation; DraftKings is not an approved tracked source, and no approved opening-to-current pair is recorded here.",
       "market_snapshot": "FanDuel spread snapshot: Seattle -15.5",
       "market_snapshot_date": "Nov 14, 2026",
       "market_snapshot_source": "BetSharp book-labeled odds comparison"
@@ -23594,7 +23594,7 @@ function render(){
  const ac=colors(g.away),hc=colors(g.home);
  const prev=s[(idx-1+s.length)%s.length],next=s[(idx+1)%s.length];
  $("peekL").innerHTML=peek(prev);$("peekR").innerHTML=peek(next);
- const bestSrc=g.best_source||""; const bestPrice=g.best_quote||((!pass&&g.best_price)?`${g.pick} ${g.best_price}`:"—"); const entryQuote=finalPass?"—":(g.entry_quote||((!pass&&!watch)?`${g.pick}${g.price?" "+g.price:""}`:"—"));
+ const bestSrc=g.best_source||""; const bestPrice=g.best_quote||((!pass&&g.best_price)?`${g.pick} ${g.best_price}`:"—"); const entryQuote=pending?"—":(finalPass?"—":(g.entry_quote||((!pass&&!watch)?`${g.pick}${g.price?" "+g.price:""}`:"—")));
  const closeText=g.close||g.close_note||((g.grade==="pass"&&g.final)?"MISSING CLOSE — ADD MARKET CLOSE":(g.grade==="pass"?"OPEN — CAPTURE AT TIP":"—"));
  hero.innerHTML=`
  <div class="cardhead">
