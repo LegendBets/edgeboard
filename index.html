@@ -4,114 +4,157 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EdgeBoard — Powered by LegendBets</title>
-<meta name="description" content="EdgeBoard by LegendBets. Data-driven college basketball picks, tracked results, and member access.">
+<meta name="description" content="EdgeBoard by LegendBets — college basketball picks, tracked results, and member access.">
 <style>
 :root{
-  --bg:#071016;--panel:#0d1820;--panel2:#101d26;--text:#f5f7f8;--muted:#9fb0b8;
-  --green:#55f35c;--green2:#28c848;--gold:#f4c147;--red:#ff565f;--line:#22333c;
+  --bg:#071017;--panel:#0d1720;--panel2:#101d26;--text:#f5f7f8;--muted:#a9b7bf;
+  --green:#54f35a;--green2:#24cf46;--gold:#f0b62c;--red:#ef3d4a;--line:#2a3a44;
 }
 *{box-sizing:border-box}
-body{margin:0;background:
- radial-gradient(circle at 78% 18%,rgba(255,120,40,.16),transparent 25%),
- radial-gradient(circle at 20% 12%,rgba(70,130,180,.12),transparent 30%),
- linear-gradient(180deg,#061018 0%,#08131a 55%,#050b10 100%);
- color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-a{text-decoration:none;color:inherit}
-.wrap{max-width:1180px;margin:auto;padding:0 22px}
-nav{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;background:rgba(4,10,14,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
-.navin{display:flex;align-items:center;justify-content:space-between;width:100%}
-.brand{font-weight:950;font-size:30px;letter-spacing:-1.2px}.brand .edge{color:#fff}.brand .board{color:var(--green)}
-.brand small{display:block;font-size:10px;letter-spacing:3px;color:#cfd8dc;margin-top:-2px}
-.navlinks{display:flex;gap:30px;align-items:center;font-weight:700;color:#d8e0e4}
-.btn{border:1px solid #43545e;border-radius:10px;padding:11px 18px;font-weight:850;display:inline-flex;align-items:center;justify-content:center}
-.btn.primary{background:linear-gradient(135deg,#68ff69,#38d957);border-color:#52e45e;color:#041008}
-.hero{padding:66px 0 28px;display:grid;grid-template-columns:1.45fr .9fr;gap:34px;align-items:stretch}
-.kicker{color:var(--green);font-size:14px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
-h1{font-size:74px;line-height:.9;margin:10px 0 8px;letter-spacing:-4px}
-h1 span{color:var(--green)}
-.powered{font-size:16px;letter-spacing:5px;font-weight:900;color:#d9e1e4;margin-bottom:24px}
-.tagline{font-size:28px;font-weight:950;margin:0 0 8px}.tagline em{color:var(--green);font-style:normal}
-.sub{max-width:760px;font-size:18px;color:#c8d3d8;line-height:1.55;margin:0}
-.signup{display:flex;gap:10px;margin-top:30px}.signup input{flex:1;background:#f3f5f6;border:0;border-radius:10px;padding:16px 18px;font-size:16px;min-width:0}.signup button{min-width:170px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
-.stat{background:linear-gradient(180deg,#101b22,#0b141a);border:1px solid #30444f;border-radius:12px;padding:18px}.stat span{display:block;color:#b6c3c9;font-size:13px}.stat b{display:block;font-size:25px;margin-top:5px}.stat .good{color:var(--green)}
-.panel{background:linear-gradient(180deg,rgba(15,28,36,.98),rgba(7,16,22,.98));border:1px solid #30444f;border-radius:16px}
-.access{padding:24px}.access h2{font-size:28px;margin:0 0 8px}.access p{color:#c4d0d5;margin:0 0 20px;line-height:1.5}
-.price{border:1px solid #3c535e;border-radius:12px;padding:16px 17px;margin:11px 0;display:flex;justify-content:space-between;gap:18px;align-items:center}.price strong{font-size:18px}.price small{display:block;color:#b8c5cb;margin-top:3px}.price .amt{font-size:24px;font-weight:950;white-space:nowrap}.price.special{border:2px solid var(--green);box-shadow:0 0 26px rgba(79,242,89,.09)}.badge{display:inline-block;background:var(--gold);color:#392500;border-radius:999px;padding:3px 9px;font-size:10px;font-weight:950;margin-bottom:5px}
-.section{padding:26px 0}.section h2{font-size:34px;margin:0 0 8px}.section .lead{color:#afbec5;margin:0 0 22px}
-.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.tier{padding:21px;border-radius:14px;background:#0b171e;border:1px solid #2c404a;min-height:210px}.tier h3{margin:0;font-size:24px}.tier p{color:#b7c4ca;line-height:1.45}.tier.lean{border-color:#2ed54c}.tier.play{border-color:#d3a528}.tier.strong{border-color:#e84b56}.lock{margin-top:28px;padding:20px;background:#091218;border:1px dashed #425560;border-radius:10px;color:#b5c2c8;text-align:center}.lock b{display:block;color:#fff;margin-bottom:4px}
-.features{display:grid;grid-template-columns:1fr 1fr;gap:20px}.feature{padding:22px}.checks{display:grid;gap:12px;margin-top:18px}.check{display:flex;gap:10px;color:#d8e0e3}.check:before{content:"✓";color:var(--green);font-weight:950}
-footer{border-top:1px solid var(--line);color:#7f929b;padding:24px 0 40px;margin-top:32px;font-size:13px}
-@media(max-width:900px){.hero{grid-template-columns:1fr}.navlinks a:not(.btn){display:none}h1{font-size:58px}.tiers,.features,.stats{grid-template-columns:1fr}.signup{flex-direction:column}.signup button{width:100%}}
+html{scroll-behavior:smooth}
+body{
+ margin:0;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+ background:
+ radial-gradient(circle at 82% 5%,rgba(70,115,145,.13),transparent 28%),
+ linear-gradient(180deg,#061018 0%,#071118 52%,#050b0f 100%);
+}
+a{text-decoration:none;color:inherit}.wrap{max-width:1220px;margin:auto;padding:0 24px}
+header{height:72px;border-bottom:1px solid #1d2d36;background:rgba(5,12,17,.91);display:flex;align-items:center;position:sticky;top:0;z-index:20;backdrop-filter:blur(10px)}
+.nav{display:flex;align-items:center;justify-content:space-between;width:100%}
+.logo{display:flex;align-items:center;gap:12px}.mark{display:flex;align-items:end;gap:4px;height:36px}.mark i{display:block;width:9px;background:var(--green);border-radius:2px}.mark i:nth-child(1){height:14px}.mark i:nth-child(2){height:25px}.mark i:nth-child(3){height:36px}
+.brand{font-size:30px;font-weight:950;letter-spacing:-1px;line-height:.9}.brand span{color:var(--green)}.brand small{display:block;font-size:10px;letter-spacing:2.8px;color:#d5dde1;margin-top:7px}
+.links{display:flex;align-items:center;gap:36px;font-weight:750}.links a{color:#eef2f4}.links .active{position:relative}.links .active:after{content:"";position:absolute;left:0;right:0;bottom:-22px;height:3px;background:var(--green)}
+.btn{border:1px solid #3b4c56;border-radius:9px;padding:11px 18px;font-weight:850;display:inline-flex;align-items:center;justify-content:center}
+.btn.primary{background:linear-gradient(135deg,#6bff70,#39df56);border-color:#57e85f;color:#061007}
+main{padding:20px 0 42px}
+.hero{display:grid;grid-template-columns:1.55fr .75fr;gap:28px;align-items:start}
+.left{padding-top:9px}
+.hero-title{font-size:82px;line-height:.88;font-weight:950;letter-spacing:-5px;margin:4px 0 8px}.hero-title span{color:var(--green)}
+.powered{font-size:15px;letter-spacing:5px;font-weight:900;color:#dbe3e7;margin-bottom:18px}
+.tagline{font-size:29px;font-weight:950;margin:0 0 8px;letter-spacing:-.8px}.tagline b{color:var(--green)}
+.sub{font-size:18px;line-height:1.48;color:#d0d8dc;max-width:760px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:21px}
+.stat{background:linear-gradient(180deg,#111d24,#0a141a);border:1px solid #354954;border-radius:11px;padding:16px 18px}.stat span{display:block;font-size:13px;color:#c1ccd1}.stat strong{display:block;font-size:23px;margin-top:6px}.good{color:var(--green)}
+.board{margin-top:19px;border:1px solid #30434e;border-radius:14px;overflow:hidden;background:#071117}
+.boardhead{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #24363f;background:#0a151c}.boardhead h2{font-size:27px;margin:0}.boardhead .accessline{font-size:14px;color:#d9e0e3}.boardhead .accessline b{color:var(--green)}
+.tier{margin:12px 14px;border-radius:11px;overflow:hidden;border:1px solid #3c4b53;background:#09141a}.tierhead{padding:10px 14px;font-size:20px;font-weight:950;display:flex;align-items:center;gap:8px}.tier.lean{border-color:#1f8640}.tier.lean .tierhead{background:linear-gradient(90deg,#0b5d2a,#10461f);color:#7cff83}.tier.play{border-color:#bd7f00}.tier.play .tierhead{background:linear-gradient(90deg,#5a3800,#3a2600);color:#ffd05d}.tier.strong{border-color:#c72c36}.tier.strong .tierhead{background:linear-gradient(90deg,#5d151c,#3c0f14);color:#ff777f}
+.lockarea{height:132px;display:flex;align-items:center;justify-content:center;position:relative;background:linear-gradient(180deg,#0b151b,#071116);text-align:center}.blurrows{position:absolute;inset:0;opacity:.22;background:repeating-linear-gradient(180deg,transparent 0 29px,#33434b 30px 31px);filter:blur(1px)}.lockcontent{position:relative;z-index:2}.lockicon{font-size:28px;margin-bottom:6px}.lockcontent b{display:block;font-size:17px}.lockcontent p{margin:4px 0 12px;color:#c1ccd1;font-size:13px}.smallbtn{display:inline-flex;padding:9px 20px;border-radius:8px;background:var(--green);color:#071007;font-weight:900}
+.freecopy{padding:15px 16px;color:#cbd6da;line-height:1.45}.freecopy b{color:#fff}.freecopy .score{display:inline-block;margin-left:7px;background:#147b25;color:#fff;font-weight:900;border:1px solid #54e45a;border-radius:7px;padding:2px 7px}
+.side{border:1px solid #30444f;border-radius:14px;background:linear-gradient(180deg,#0f1b23,#091218);padding:20px;min-height:100%}.side h2{font-size:29px;margin:0 0 8px}.side>p{color:#c7d2d7;line-height:1.45;margin:0 0 16px}
+.price{border:1px solid #374b55;border-radius:11px;padding:15px 15px;margin:10px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;background:#0d1820}.price.special{border:2px solid #79ef2e;box-shadow:0 0 24px rgba(91,235,69,.08)}.badge{display:inline-block;background:var(--gold);color:#372300;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:950;margin-bottom:5px}.price strong{display:block;font-size:18px}.price small{display:block;color:#b8c5ca;margin-top:4px;line-height:1.3}.amt{font-size:25px;font-weight:950;white-space:nowrap}.strike{text-decoration:line-through;color:#74848c;font-size:13px;display:block;text-align:right}
+.side .cta{width:100%;margin-top:8px;padding:14px;font-size:17px}
+.benefits{margin:21px 0 24px;display:grid;gap:12px}.benefit{display:flex;gap:10px;color:#dce4e7}.benefit:before{content:"✓";color:var(--green);font-weight:950}
+.how{border:1px solid #334751;border-radius:11px;padding:16px;background:#0c171e}.how h3{margin:0 0 14px;font-size:18px}.step{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;margin:10px 0;color:#d7e0e3}.num{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#56646b;color:#fff;font-weight:900}
+.emailstrip{margin-top:16px;border:1px solid #2d424c;border-radius:12px;padding:15px;display:flex;gap:10px;background:#09141a}.emailstrip input{flex:1;background:#eef2f4;color:#142028;border:0;border-radius:8px;padding:13px 14px;font-size:15px}
+.notice{margin-top:15px;color:#8fa1aa;font-size:12px;text-align:center}
+footer{border-top:1px solid #1f3038;padding:22px 0;color:#72858e;font-size:12px}
+@media(max-width:980px){.hero{grid-template-columns:1fr}.hero-title{font-size:64px}.stats{grid-template-columns:1fr 1fr}.links a:not(.btn){display:none}.links{gap:9px}.links .active:after{display:none}}
+@media(max-width:620px){.hero-title{font-size:48px;letter-spacing:-3px}.tagline{font-size:22px}.stats{grid-template-columns:1fr}.boardhead{align-items:flex-start;gap:10px;flex-direction:column}.emailstrip{flex-direction:column}.brand{font-size:24px}}
 </style>
 </head>
 <body>
-<nav><div class="wrap navin">
-  <div class="brand"><span class="edge">EDGE</span><span class="board">BOARD</span><small>POWERED BY LEGENDBETS</small></div>
-  <div class="navlinks"><a href="#home">Home</a><a href="results.html">Results</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a class="btn" href="#signup">Sign In</a><a class="btn primary" href="#signup">Get Access</a></div>
-</div></nav>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">
+      <div class="mark"><i></i><i></i><i></i></div>
+      <div class="brand">EDGE<span>BOARD</span><small>POWERED BY LEGENDBETS</small></div>
+    </a>
+    <div class="links">
+      <a class="active" href="index.html">Home</a>
+      <a href="results.html">Results</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn" href="#signup">Sign In</a>
+      <a class="btn primary" href="#signup">Get Access</a>
+    </div>
+  </div>
+</header>
 
 <main class="wrap">
-<section class="hero" id="home">
-  <div>
-    <div class="kicker">College Basketball Edge Board</div>
-    <h1>EDGE<span>BOARD</span></h1>
-    <div class="powered">POWERED BY LEGENDBETS</div>
-    <p class="tagline">BUILT FOR <em>BETTING ON COLLEGE KIDS.</em></p>
-    <p class="sub">Data-driven college basketball picks, tracked results, and actionable plays. Create a free account to see LEANs. PLAY and STRONG selections require paid daily, monthly, or season access.</p>
-    <form class="signup" id="signup" onsubmit="event.preventDefault();document.getElementById('signupMsg').textContent='Preview only — account creation will be connected to Supabase before launch.'">
-      <input type="email" required placeholder="Enter your email address" aria-label="Email address">
-      <button class="btn primary" type="submit">Create Free Account →</button>
-    </form>
-    <div id="signupMsg" style="margin-top:9px;color:#9fb0b8;font-size:13px"></div>
-    <div class="stats">
-      <div class="stat"><span>Tracked Record</span><b>49–23–0 <span class="good">+17.59u</span></b></div>
-      <div class="stat"><span>Free Access</span><b class="good">LEANs</b></div>
-      <div class="stat"><span>Paid Access</span><b>PLAY + STRONG</b></div>
-    </div>
-  </div>
+  <section class="hero">
+    <div class="left">
+      <div class="hero-title">EDGE<span>BOARD</span></div>
+      <div class="powered">POWERED BY LEGENDBETS</div>
+      <p class="tagline">BUILT FOR <b>BETTING ON COLLEGE KIDS.</b></p>
+      <p class="sub">Data-driven college basketball picks, tracked results, and actionable plays. Create a free account to view LEANs. PLAY and STRONG selections stay behind paid member access.</p>
 
-  <aside class="panel access" id="pricing">
-    <h2>Get Full Access</h2>
-    <p>Sign up free for LEANs, or unlock the paid board with the option that fits you.</p>
-    <div class="price special"><div><span class="badge">BLACK FRIDAY SPECIAL</span><strong>Season Pass</strong><small>Rest of regular season + conference tournaments. March Madness not included.</small></div><div class="amt">$199</div></div>
-    <div class="price"><div><strong>Monthly Access</strong><small>Unlimited PLAY + STRONG access.</small></div><div class="amt">$99/mo</div></div>
-    <div class="price"><div><strong>Day Credits</strong><small>$10 minimum • 1 credit = 1 unlocked day.</small></div><div class="amt">$10+</div></div>
-    <a class="btn primary" style="width:100%;margin-top:8px" href="#signup">Get Access Now →</a>
-  </aside>
-</section>
+      <div class="stats">
+        <div class="stat"><span>Tracked Record</span><strong>49–23–0 <span class="good">+17.59u</span></strong></div>
+        <div class="stat"><span>STRONG</span><strong>17–4 <span class="good">+11.24u</span></strong></div>
+        <div class="stat"><span>PLAY</span><strong>17–10 <span class="good">+4.09u</span></strong></div>
+        <div class="stat"><span>LEAN</span><strong>15–9 <span class="good">+2.25u</span></strong></div>
+      </div>
 
-<section class="section">
-  <h2>Today’s Board</h2>
-  <p class="lead">Current selections are never delivered to logged-out visitors. Sign in to retrieve today’s board securely.</p>
-  <div class="tiers">
-    <div class="tier lean"><h3 style="color:var(--green)">LEAN — FREE</h3><p>Available to every registered member after login.</p><div class="lock"><b>Free account required</b>No current pick data is embedded on this page.</div></div>
-    <div class="tier play"><h3 style="color:var(--gold)">PLAY — PAID</h3><p>Higher-conviction selections available after daily or subscription access is verified.</p><div class="lock"><b>Locked</b>Use 1 day credit or an active plan.</div></div>
-    <div class="tier strong"><h3 style="color:var(--red)">STRONG — PAID</h3><p>Highest-conviction selections. Protected the same way as PLAYs.</p><div class="lock"><b>Locked</b>Use 1 day credit or an active plan.</div></div>
-  </div>
-</section>
+      <section class="board">
+        <div class="boardhead">
+          <h2>Today’s Board</h2>
+          <div class="accessline">LEANs <b>FREE AFTER LOGIN</b> &nbsp;|&nbsp; PLAY / STRONG <b>PAID</b></div>
+        </div>
 
-<section class="section features" id="faq">
-  <div class="panel feature">
-    <h2>How access works</h2>
-    <div class="checks">
-      <div class="check">Create a free account to access LEANs.</div>
-      <div class="check">A day credit unlocks PLAY + STRONG for that calendar day.</div>
-      <div class="check">Monthly and season members bypass day credits.</div>
-      <div class="check">A credit is only consumed when the paid board is intentionally unlocked.</div>
+        <div class="tier lean">
+          <div class="tierhead">🔒 LEAN — FREE</div>
+          <div class="freecopy">
+            <b>Free account required.</b> Log in to retrieve today’s LEAN selections and their <b>Market Agreement Score</b>. No current picks are embedded in this public page.
+          </div>
+        </div>
+
+        <div class="tier play">
+          <div class="tierhead">🔒 PLAY — PAID ACCESS</div>
+          <div class="lockarea"><div class="blurrows"></div><div class="lockcontent"><div class="lockicon">🔒</div><b>Unlock today’s PLAY picks</b><p>Use 1 day credit or an active subscription.</p><span class="smallbtn">Use 1 Credit</span></div></div>
+        </div>
+
+        <div class="tier strong">
+          <div class="tierhead">🔒 STRONG — PAID ACCESS</div>
+          <div class="lockarea"><div class="blurrows"></div><div class="lockcontent"><div class="lockicon">🔒</div><b>Unlock today’s STRONG picks</b><p>Highest-confidence selections from today’s board.</p><span class="smallbtn">Use 1 Credit</span></div></div>
+        </div>
+      </section>
     </div>
-  </div>
-  <div class="panel feature">
-    <h2>Protected by design</h2>
-    <div class="checks">
-      <div class="check">No current picks in the public homepage HTML.</div>
-      <div class="check">No PASSes, private fair lines, model edges, formulas, or internal ratings sent publicly.</div>
-      <div class="check">Paid picks will be fetched only after authenticated entitlement checks.</div>
-      <div class="check">Member-specific watermarking will discourage screenshot sharing.</div>
-    </div>
-  </div>
-</section>
+
+    <aside class="side" id="pricing">
+      <h2>Get Full Access</h2>
+      <p>Create a free account for LEANs, or unlock PLAY + STRONG with daily, monthly, or season access.</p>
+
+      <div class="price special">
+        <div><span class="badge">BLACK FRIDAY SPECIAL</span><strong>Season Pass</strong><small>Rest of regular season + conference tournaments.<br>March Madness not included.</small></div>
+        <div class="amt">$199<span class="strike">$299</span></div>
+      </div>
+
+      <div class="price">
+        <div><strong>Monthly Access</strong><small>Unlimited access to all PLAY + STRONG picks.</small></div>
+        <div class="amt">$99/mo</div>
+      </div>
+
+      <div class="price">
+        <div><strong>Day Credits</strong><small>$10 minimum purchase • 1 credit = 1 full paid day.</small></div>
+        <div class="amt">$10+</div>
+      </div>
+
+      <a class="btn primary cta" href="#signup">Get Access Now →</a>
+
+      <div class="benefits">
+        <div class="benefit">Today’s PLAY & STRONG picks</div>
+        <div class="benefit">Free LEAN access after login</div>
+        <div class="benefit">Tracked results & detailed performance</div>
+        <div class="benefit">Member-only authenticated board</div>
+        <div class="benefit">Per-user watermarking on paid picks</div>
+      </div>
+
+      <div class="how" id="faq">
+        <h3>ⓘ How It Works</h3>
+        <div class="step"><div class="num">1</div><div>Create a free account</div></div>
+        <div class="step"><div class="num">2</div><div>Buy day credits or choose a plan</div></div>
+        <div class="step"><div class="num">3</div><div>Unlock PLAY + STRONG securely after login</div></div>
+      </div>
+
+      <form class="emailstrip" id="signup" onsubmit="event.preventDefault();document.getElementById('msg').textContent='Preview only — signup will connect to Supabase before launch.'">
+        <input type="email" required placeholder="Enter your email address">
+        <button class="btn primary" type="submit">Create Account →</button>
+      </form>
+      <div id="msg" class="notice">Preview branch only — nothing here is live yet.</div>
+    </aside>
+  </section>
 </main>
+
 <footer><div class="wrap">EDGEBOARD • POWERED BY LEGENDBETS • Preview build — not yet live</div></footer>
 </body>
 </html>
