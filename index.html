@@ -315,7 +315,12 @@ function money(u){return "$"+(Number(u||0)*baseBet).toFixed(0)}
 function allTracked(){
  return [...(SLATES.previous||[]),...(SLATES.today||[])].filter(g=>hasVerifiedPrivateModel(g)&&!g.record_excluded&&g.grade!=="pass"&&["W","L","P"].includes(g.result));
 }
-const OFFICIAL_BASE_RECORD={w:31,l:14,p:0,u:11.63};
+const OFFICIAL_BASE_RECORD={w:49,l:23,p:0,u:17.59};
+const OFFICIAL_BASE_BY_GRADE={
+ strong:{w:17,l:4,p:0,u:11.24,roi:53.5,avg:-0.02},
+ play:{w:17,l:10,p:0,u:4.09,roi:20.2,avg:0.37},
+ lean:{w:15,l:9,p:0,u:2.25,roi:18.7,avg:0.00}
+};
 function statsFor(label){
  const s=allTracked().filter(g=>!label||g.grade===label);
  const w=s.filter(g=>g.result==="W").length,l=s.filter(g=>g.result==="L").length,p=s.filter(g=>g.result==="P").length;
@@ -328,7 +333,13 @@ function rec(){
  const live=statsFor("");
  const x={w:OFFICIAL_BASE_RECORD.w+live.w,l:OFFICIAL_BASE_RECORD.l+live.l,p:OFFICIAL_BASE_RECORD.p+live.p,u:OFFICIAL_BASE_RECORD.u+live.u};
  $("record").textContent=`${x.w}-${x.l}-${x.p}  ${x.u>=0?"+":""}${x.u.toFixed(2)}u`;
- $("recordDetails").innerHTML=["strong","play","lean"].map(k=>{const s=statsFor(k);return `<div class="record-card"><span>${k}</span><b>${s.w}-${s.l}-${s.p}</b><span>${s.u>=0?"+":""}${s.u.toFixed(2)}u • ROI ${s.roi.toFixed(1)}%</span><span>Avg CLV ${s.avg==null?"Pending":s.avg.toFixed(2)}</span></div>`}).join("");
+ $("recordDetails").innerHTML=["strong","play","lean"].map(k=>{
+   const base=OFFICIAL_BASE_BY_GRADE[k], liveGrade=statsFor(k);
+   const w=base.w+liveGrade.w,l=base.l+liveGrade.l,p=base.p+liveGrade.p,u=base.u+liveGrade.u;
+   const roi=liveGrade.risk?((base.u+liveGrade.u)/(base.u/(base.roi/100)+liveGrade.risk)*100):base.roi;
+   const avg=liveGrade.avg==null?base.avg:((base.avg+liveGrade.avg)/2);
+   return `<div class="record-card"><span>${k}</span><b>${w}-${l}-${p}</b><span>${u>=0?"+":""}${u.toFixed(2)}u • ROI ${roi.toFixed(1)}%</span><span>Avg CLV ${avg==null?"Pending":avg.toFixed(2)}</span></div>`;
+ }).join("");
 }
 function peek(g){
  if(!g)return "";
