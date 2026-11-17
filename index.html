@@ -270,8 +270,33 @@ function sourceLabelForGame(g,source){
  if(isNYRestrictedGame(g) && /^FanDuel$/i.test(src)) return "FanDuel (NOT IN NY)";
  return src;
 }
+function hasVerifiedPrivateModel(raw){
+  if(!raw)return false;
+  const d=String(raw.date||"");
+  if(d && d < "2026-11-17") return true;
+  return raw.model_verified === true;
+}
 function safeGame(raw){
- return {...raw};
+  const g={...raw};
+  const grade=String(g.grade||"").toLowerCase();
+  const classified=["strong","play","lean","pass","watch"].includes(grade);
+  if(classified && !hasVerifiedPrivateModel(g)){
+    return {
+      ...g,
+      grade:"pending",
+      pick:"PENDING — PRIVATE MODEL VERIFICATION",
+      units:0,
+      price:"",
+      suggested_price:"",
+      entry_quote:"",
+      entry_source:"",
+      entry_time:"",
+      entry_confirmed:false,
+      history:[],
+      model_verification_error:"Private fair/model record missing; publication blocked."
+    };
+  }
+  return g;
 }
 function isPubliclyGradedGame(g){
  const grade=String(g.grade||"").toLowerCase();
@@ -288,7 +313,7 @@ function list(){
 }
 function money(u){return "$"+(Number(u||0)*baseBet).toFixed(0)}
 function allTracked(){
- return [...(SLATES.previous||[]),...(SLATES.today||[])].filter(g=>!g.record_excluded&&g.grade!=="pass"&&["W","L","P"].includes(g.result));
+ return [...(SLATES.previous||[]),...(SLATES.today||[])].filter(g=>hasVerifiedPrivateModel(g)&&!g.record_excluded&&g.grade!=="pass"&&["W","L","P"].includes(g.result));
 }
 function statsFor(label){
  const s=allTracked().filter(g=>!label||g.grade===label);
